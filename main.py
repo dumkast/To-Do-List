@@ -8,10 +8,12 @@ from PyQt6.QtWidgets import (
 )
 from database import TaskDatabase
 
+# Виджет для отображения задачи
 class TaskWidget(QWidget):
     def __init__(self, title, priority, due_date):
         super().__init__()
 
+        # Установка стилей для виджета
         self.setStyleSheet("""
             background-color: #FFFFFF;
             border: 1px solid #DDDDDD;
@@ -19,8 +21,10 @@ class TaskWidget(QWidget):
             padding: 8px;
         """)
 
+        # Создание вертикального расположения элементов
         layout = QVBoxLayout()
 
+        # Горизонтальное расположение для названия задачи и приоритета
         top_layout = QHBoxLayout()
         self.title_label = QLabel(title)
         self.title_label.setStyleSheet("font-weight: bold; font-size: 16px;")
@@ -40,13 +44,14 @@ class TaskWidget(QWidget):
 
         self.setLayout(layout)
 
+    # Метод для установки цвета в зависимости от приоритета задачи
     def priority_style(self, priority):
         colors = {
-            1: "#FF5722",   # Очень высокий - оранжевый
+            1: "#FF5722",   # Очень высокий - красный
             2: "#FF9800",   # Высокий
             3: "#FFC107",   # Средний
             4: "#8BC34A",   # Низкий
-            5: "#4CAF50",   # Очень низкий
+            5: "#4CAF50",   # Очень низкий - зеленый
         }
         color = colors.get(priority, "#999999")
         return f"""
@@ -59,16 +64,18 @@ class TaskWidget(QWidget):
             text-transform: uppercase;
         """
 
+# Главный класс приложения To-Do
 class ToDoApp(QWidget):
     def __init__(self):
         super().__init__()
 
-        self.db = TaskDatabase()
+        self.db = TaskDatabase()  # Создание объекта базы данных задач
 
-        self.setWindowTitle("To-Do List")
-        self.setWindowIcon(QIcon("icon.png"))
-        self.setFixedSize(550, 650)
+        self.setWindowTitle("To-Do List")  # Установка названия окна
+        self.setWindowIcon(QIcon("icon.png"))  # Установка иконки
+        self.setFixedSize(550, 650)  # Установка размера окна
 
+        # Общие стили для приложения
         self.setStyleSheet("""
             background-color: #F5F5F5;
             color: #2C2C2C;
@@ -76,11 +83,12 @@ class ToDoApp(QWidget):
             font-family: Arial, sans-serif;
         """)
 
-        self.init_ui()
+        self.init_ui()  # Инициализация интерфейса
 
     def init_ui(self):
         main_layout = QVBoxLayout()
 
+        # Поля ввода для названия, приоритета и даты
         self.title_input = QLineEdit()
         self.title_input.setPlaceholderText("Название задачи")
         self.title_input.setStyleSheet(self.input_style())
@@ -90,24 +98,25 @@ class ToDoApp(QWidget):
         self.priority_input.setStyleSheet(self.input_style())
 
         self.date_input = QDateEdit()
-        self.date_input.setCalendarPopup(True)
-        self.date_input.setDate(QDate.currentDate())
-        self.date_input.calendarWidget().setFixedSize(270, 200)
+        self.date_input.setCalendarPopup(True)  # Включение календаря для выбора даты
+        self.date_input.setDate(QDate.currentDate())  # Установка сегодняшней дату по умолчанию
+        self.date_input.calendarWidget().setFixedSize(270, 200)  # Установка размера календаря
         self.date_input.setStyleSheet(self.input_style())
 
         self.search_input = QLineEdit()
         self.search_input.setPlaceholderText("Поиск по названию")
         self.search_input.setStyleSheet(self.input_style())
-        self.search_input.textChanged.connect(self.search_task)
+        self.search_input.textChanged.connect(self.search_task)  # Поиск при изменении текста
 
         self.sort_filter = QComboBox()
         self.sort_filter.addItem("Сортировать по приоритету")
         self.sort_filter.addItem("Сортировать по дедлайну")
         self.sort_filter.setStyleSheet(self.input_style())
-        self.sort_filter.currentTextChanged.connect(self.load_tasks)
+        self.sort_filter.currentTextChanged.connect(self.load_tasks)  # Перезагрузка задач при изменении фильтра
 
         buttons_layout = QHBoxLayout()
 
+        # Кнопки для добавления, редактирования, удаления и очистки задач
         self.add_btn = QPushButton("Добавить")
         self.add_btn.setStyleSheet(self.button_style())
         self.add_btn.clicked.connect(self.add_task)
@@ -129,13 +138,13 @@ class ToDoApp(QWidget):
         buttons_layout.addWidget(self.delete_btn)
         buttons_layout.addWidget(self.clear_btn)
 
-        self.task_list = QListWidget()
+        self.task_list = QListWidget()  # Список задач
         self.task_list.setStyleSheet("""
             background-color: #F9F9F9;
             border: none;
-            
         """)
 
+        # Добавление всех виджетов в основной layout
         main_layout.addWidget(self.title_input)
         main_layout.addWidget(self.priority_input)
         main_layout.addWidget(self.date_input)
@@ -146,8 +155,9 @@ class ToDoApp(QWidget):
 
         self.setLayout(main_layout)
 
-        self.load_tasks()
+        self.load_tasks()  # Загрузка задач при запуске
 
+    # Стиль для полей ввода
     def input_style(self):
         return """
             background-color: #FFFFFF;
@@ -156,6 +166,7 @@ class ToDoApp(QWidget):
             border-radius: 5px;
         """
 
+    # Стиль для кнопок
     def button_style(self):
         return """
             QPushButton {
@@ -170,17 +181,19 @@ class ToDoApp(QWidget):
             }
         """
 
+    # Загрузка задач из базы данных
     def load_tasks(self):
         self.task_list.clear()
         order = "priority" if self.sort_filter.currentText() == "Сортировать по приоритету" else "due_date"
         tasks = self.db.get_tasks(order_by=order)
         for task in tasks:
             item = QListWidgetItem()
-            widget = TaskWidget(task[1], task[2], task[3])
+            widget = TaskWidget(task[1], task[2], task[3])  # Создание виджета для каждой задачи
             item.setSizeHint(widget.sizeHint())
             self.task_list.addItem(item)
             self.task_list.setItemWidget(item, widget)
 
+    # Добавление новой задачи
     def add_task(self):
         title = self.title_input.text().strip()
         priority = self.priority_input.text().strip()
@@ -193,9 +206,10 @@ class ToDoApp(QWidget):
         self.db.add_task(title, int(priority), due_date)
         self.title_input.clear()
         self.priority_input.clear()
-        self.date_input.setDate(QDate.currentDate())
+        self.date_input.setDate(QDate.currentDate())  # Сброс поля даты
         self.load_tasks()
 
+    # Удаление выбранной задачи
     def delete_task(self):
         selected_item = self.task_list.currentRow()
         if selected_item != -1:
@@ -209,6 +223,7 @@ class ToDoApp(QWidget):
         else:
             self.show_message("Ошибка", "Выберите задачу для удаления.")
 
+    # Редактирование выбранной задачи
     def edit_task(self):
         selected_item = self.task_list.currentRow()
         if selected_item == -1:
@@ -243,9 +258,10 @@ class ToDoApp(QWidget):
 
         self.title_input.clear()
         self.priority_input.clear()
-        self.date_input.setDate(QDate.currentDate())
+        self.date_input.setDate(QDate.currentDate())  # Сброс поля даты
         self.load_tasks()
 
+    # Очистка всех задач
     def clear_all_tasks(self):
         msg_box = QMessageBox()
         msg_box.setIcon(QMessageBox.Icon.Question)
@@ -259,18 +275,20 @@ class ToDoApp(QWidget):
             self.db.clear_all_tasks()
             self.load_tasks()
 
+    # Поиск задачи по названию
     def search_task(self, text):
         self.task_list.clear()
         order = "priority" if self.sort_filter.currentText() == "Сортировать по приоритету" else "due_date"
         tasks = self.db.get_tasks(order_by=order)
         for task in tasks:
-            if text.lower() in task[1].lower():
+            if text.lower() in task[1].lower():  # Фильтрация по названию
                 item = QListWidgetItem()
                 widget = TaskWidget(task[1], task[2], task[3])
                 item.setSizeHint(widget.sizeHint())
                 self.task_list.addItem(item)
                 self.task_list.setItemWidget(item, widget)
 
+    # Показ сообщения
     def show_message(self, title, message):
         msg = QMessageBox()
         msg.setWindowTitle(title)
@@ -278,6 +296,7 @@ class ToDoApp(QWidget):
         msg.setWindowIcon(QIcon("warning.png"))
         msg.exec()
 
+# Запуск приложения
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     todo_app = ToDoApp()

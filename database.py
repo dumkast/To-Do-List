@@ -6,6 +6,7 @@ class TaskDatabase:
         self.create_table()
 
     def create_table(self):
+        # Создание таблицы задач
         self.conn.execute("""
             CREATE TABLE IF NOT EXISTS tasks (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -17,10 +18,12 @@ class TaskDatabase:
         self.conn.commit()
 
     def add_task(self, title, priority, due_date):
+        # Добавление задачи
         self.conn.execute("INSERT INTO tasks (title, priority, due_date) VALUES (?, ?, ?)", (title, priority, due_date))
         self.conn.commit()
 
     def get_tasks(self, order_by="priority"):
+        # Получение всех задач
         if order_by == "priority":
             cursor = self.conn.execute("SELECT id, title, priority, due_date FROM tasks ORDER BY priority ASC")
         elif order_by == "due_date":
@@ -30,21 +33,22 @@ class TaskDatabase:
         return cursor.fetchall()
 
     def get_task_id_by_title(self, title):
+        # Получение ID задачи по названию
         cursor = self.conn.execute("SELECT id FROM tasks WHERE title = ?", (title,))
         result = cursor.fetchone()
         return result[0] if result else None
 
     def update_task(self, task_id, new_title, new_priority, new_due_date):
-        self.conn.execute(
-            "UPDATE tasks SET title = ?, priority = ?, due_date = ? WHERE id = ?",
-            (new_title, new_priority, new_due_date, task_id)
-        )
+        # Обновление задачи
+        self.conn.execute("UPDATE tasks SET title = ?, priority = ?, due_date = ? WHERE id = ?", (new_title, new_priority, new_due_date, task_id))
         self.conn.commit()
 
     def delete_task(self, task_id):
+        # Удаление задачи
         self.conn.execute("DELETE FROM tasks WHERE id = ?", (task_id,))
         self.conn.commit()
 
     def clear_all_tasks(self):
+        # Очистка всех задач
         self.conn.execute("DELETE FROM tasks")
         self.conn.commit()
