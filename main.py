@@ -211,25 +211,40 @@ class ToDoApp(QWidget):
 
     def edit_task(self):
         selected_item = self.task_list.currentRow()
-        if selected_item != -1:
-            task_title = self.task_list.itemWidget(self.task_list.item(selected_item)).title_label.text()
-            task_id = self.db.get_task_id_by_title(task_title)
-
-            new_title = self.title_input.text().strip()
-            new_priority = self.priority_input.text().strip()
-            new_due_date = self.date_input.date().toString("dd.MM.yyyy")
-
-            if not new_title or not new_priority.isdigit() or not (1 <= int(new_priority) <= 5):
-                self.show_message("Ошибка", "Введите новое название и корректный приоритет (1-5).")
-                return
-
-            if task_id:
-                self.db.update_task(task_id, new_title, int(new_priority), new_due_date)
-                self.load_tasks()
-            else:
-                self.show_message("Ошибка", "Не удалось найти задачу для редактирования.")
-        else:
+        if selected_item == -1:
             self.show_message("Ошибка", "Выберите задачу для редактирования.")
+            return
+
+        widget = self.task_list.itemWidget(self.task_list.item(selected_item))
+        old_title = widget.title_label.text()
+        old_priority = widget.priority_label.text().split(": ")[1]
+        old_due_date = widget.date_label.text().split(": ")[1]
+
+        task_id = self.db.get_task_id_by_title(old_title)
+        if not task_id:
+            self.show_message("Ошибка", "Не удалось найти задачу для редактирования.")
+            return
+
+        new_title = self.title_input.text().strip() or old_title
+
+        new_priority_text = self.priority_input.text().strip()
+        if new_priority_text.isdigit() and 1 <= int(new_priority_text) <= 5:
+            new_priority = int(new_priority_text)
+        else:
+            new_priority = int(old_priority)
+
+        selected_due_date = self.date_input.date().toString("dd.MM.yyyy")
+        if selected_due_date != QDate.currentDate().toString("dd.MM.yyyy"):
+            new_due_date = selected_due_date
+        else:
+            new_due_date = old_due_date
+
+        self.db.update_task(task_id, new_title, new_priority, new_due_date)
+
+        self.title_input.clear()
+        self.priority_input.clear()
+        self.date_input.setDate(QDate.currentDate())
+        self.load_tasks()
 
     def clear_all_tasks(self):
         msg_box = QMessageBox()
