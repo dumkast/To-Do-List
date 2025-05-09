@@ -1,0 +1,6 @@
+Metadata-Version: 2.1
+Name: todo_app
+Version: 1.0.0
+Summary: Простое PyQt-приложение To-Do
+Author: Dmitry
+Requires-Dist: PyQt6
