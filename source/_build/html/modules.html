@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Project Modules &#8212; ToDoApp 1.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=8d563738"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="ToDoApp documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-main">
+<span id="project-modules"></span><h1>Project Modules<a class="headerlink" href="#module-main" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="main.TaskWidget">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">TaskWidget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priority</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">due_date</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.TaskWidget" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
+<p>Виджет для отображения задачи с названием, приоритетом и дедлайном.</p>
+<dl class="simple">
+<dt>Атрибуты:</dt><dd><p>title (str): Название задачи.
+priority (int): Приоритет задачи (от 1 до 5).
+due_date (str): Дата дедлайна задачи.</p>
+</dd>
+<dt>Методы:</dt><dd><p>priority_style(priority): Возвращает стиль для метки приоритета в зависимости от его значения.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="main.TaskWidget.priority_style">
+<span class="sig-name descname"><span class="pre">priority_style</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">priority</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.TaskWidget.priority_style" title="Link to this definition">¶</a></dt>
+<dd><p>Возвращает стиль для метки приоритета в зависимости от его значения.</p>
+<dl class="simple">
+<dt>Аргументы:</dt><dd><p>priority (int): Приоритет задачи.</p>
+</dd>
+<dt>Возвращает:</dt><dd><p>str: CSS стиль для метки приоритета.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="main.ToDoApp">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">main.</span></span><span class="sig-name descname"><span class="pre">ToDoApp</span></span><a class="headerlink" href="#main.ToDoApp" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
+<p>Главный класс приложения To-Do List.</p>
+<dl class="simple">
+<dt>Методы:</dt><dd><p>init_ui(): Инициализирует пользовательский интерфейс.
+load_tasks(): Загружает список задач из базы данных.
+add_task(): Добавляет новую задачу.
+delete_task(): Удаляет выбранную задачу.
+edit_task(): Редактирует выбранную задачу.
+clear_all_tasks(): Удаляет все задачи.
+search_task(text): Поиск задачи по названию.
+show_message(title, message): Показывает окно с сообщением.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="main.ToDoApp.add_task">
+<span class="sig-name descname"><span class="pre">add_task</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#main.ToDoApp.add_task" title="Link to this definition">¶</a></dt>
+<dd><p>Добавляет новую задачу в базу данных и обновляет отображение задач.</p>
+<p>Проверяет, что название задачи и приоритет введены корректно.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="main.ToDoApp.button_style">
+<span class="sig-name descname"><span class="pre">button_style</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#main.ToDoApp.button_style" title="Link to this definition">¶</a></dt>
+<dd><p>Возвращает стиль для кнопок.</p>
+<dl class="simple">
+<dt>Возвращает:</dt><dd><p>str: CSS стиль для кнопок.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="main.ToDoApp.clear_all_tasks">
+<span class="sig-name descname"><span class="pre">clear_all_tasks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#main.ToDoApp.clear_all_tasks" title="Link to this definition">¶</a></dt>
+<dd><p>Очищает все задачи из базы данных после подтверждения пользователя.</p>
+<p>Показывает диалоговое окно для подтверждения удаления всех задач.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="main.ToDoApp.delete_task">
+<span class="sig-name descname"><span class="pre">delete_task</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#main.ToDoApp.delete_task" title="Link to this definition">¶</a></dt>
+<dd><p>Удаляет выбранную задачу из базы данных и обновляет отображение задач.</p>
+<p>Если задача не выбрана, выводится сообщение об ошибке.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="main.ToDoApp.edit_task">
+<span class="sig-name descname"><span class="pre">edit_task</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#main.ToDoApp.edit_task" title="Link to this definition">¶</a></dt>
+<dd><p>Редактирует выбранную задачу.</p>
+<p>Если задача не выбрана или не найдена, выводится сообщение об ошибке.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="main.ToDoApp.init_ui">
+<span class="sig-name descname"><span class="pre">init_ui</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#main.ToDoApp.init_ui" title="Link to this definition">¶</a></dt>
+<dd><p>Инициализация графического интерфейса пользователя.
+Настройка всех виджетов и кнопок на главном экране.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="main.ToDoApp.input_style">
+<span class="sig-name descname"><span class="pre">input_style</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#main.ToDoApp.input_style" title="Link to this definition">¶</a></dt>
+<dd><p>Возвращает стиль для полей ввода.</p>
+<dl class="simple">
+<dt>Возвращает:</dt><dd><p>str: CSS стиль для полей ввода.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="main.ToDoApp.load_tasks">
+<span class="sig-name descname"><span class="pre">load_tasks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#main.ToDoApp.load_tasks" title="Link to this definition">¶</a></dt>
+<dd><p>Загружает список задач из базы данных и отображает их в интерфейсе.</p>
+<p>Сортирует задачи по приоритету или дедлайну в зависимости от выбранного фильтра.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="main.ToDoApp.search_task">
+<span class="sig-name descname"><span class="pre">search_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.ToDoApp.search_task" title="Link to this definition">¶</a></dt>
+<dd><p>Фильтрует задачи по названию.</p>
+<dl class="simple">
+<dt>Аргументы:</dt><dd><p>text (str): Текст для поиска в названии задачи.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="main.ToDoApp.show_message">
+<span class="sig-name descname"><span class="pre">show_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#main.ToDoApp.show_message" title="Link to this definition">¶</a></dt>
+<dd><p>Показывает окно с сообщением.</p>
+<dl class="simple">
+<dt>Аргументы:</dt><dd><p>title (str): Заголовок окна.
+message (str): Текст сообщения.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class" id="module-database">
+<dt class="sig sig-object py" id="database.TaskDatabase">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">database.</span></span><span class="sig-name descname"><span class="pre">TaskDatabase</span></span><a class="headerlink" href="#database.TaskDatabase" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="database.TaskDatabase.add_task">
+<span class="sig-name descname"><span class="pre">add_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priority</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">due_date</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#database.TaskDatabase.add_task" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="database.TaskDatabase.clear_all_tasks">
+<span class="sig-name descname"><span class="pre">clear_all_tasks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#database.TaskDatabase.clear_all_tasks" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="database.TaskDatabase.create_table">
+<span class="sig-name descname"><span class="pre">create_table</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#database.TaskDatabase.create_table" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="database.TaskDatabase.delete_task">
+<span class="sig-name descname"><span class="pre">delete_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#database.TaskDatabase.delete_task" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="database.TaskDatabase.get_task_id_by_title">
+<span class="sig-name descname"><span class="pre">get_task_id_by_title</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#database.TaskDatabase.get_task_id_by_title" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="database.TaskDatabase.get_tasks">
+<span class="sig-name descname"><span class="pre">get_tasks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">order_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'priority'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#database.TaskDatabase.get_tasks" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="database.TaskDatabase.update_task">
+<span class="sig-name descname"><span class="pre">update_task</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_priority</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_due_date</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#database.TaskDatabase.update_task" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">ToDoApp</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Project Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#main.TaskWidget"><code class="docutils literal notranslate"><span class="pre">TaskWidget</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#main.ToDoApp"><code class="docutils literal notranslate"><span class="pre">ToDoApp</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#database.TaskDatabase"><code class="docutils literal notranslate"><span class="pre">TaskDatabase</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">ToDoApp documentation</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Dmitry.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/modules.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
