@@ -146,7 +146,7 @@ class ToDoApp(QWidget):
         self.date_input = QDateEdit()
         self.date_input.setCalendarPopup(True)  # Включение календаря для выбора даты
         self.date_input.setDate(QDate.currentDate())  # Установка сегодняшней дату по умолчанию
-        self.date_input.calendarWidget().setFixedSize(270, 200)  # Установка размера календаря
+        self.date_input.calendarWidget().setFixedSize(270, 200)
         self.date_input.setStyleSheet(self.input_style())
 
         self.search_input = QLineEdit()
